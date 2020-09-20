@@ -2,29 +2,31 @@ pipeline {
   environment {
     registry = "nimrodops/nginx-app"
     registryCredential = 'hub-credentials'
+    dockerImage = ''
   }
-  agent { label 'cdnode'}
+  agent { label 'cdnode' }
   stages {
-
+   
     stage('Building image') {
       steps{
         script {
-          docker.build registry + ":$BUILD_NUMBER"
+          dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
       }
     }
-	
-	
-	stage('Deploy Image') {
-		steps{    
-			script {
-				docker.withRegistry( '', registryCredential ) {
-				docker.push()
+    stage('Deploy Image') {
+      steps{
+        script {
+          docker.withRegistry( '', registryCredential ) {
+            dockerImage.push()
+          }
+        }
+      }
+    }
+    stage('Remove Unused docker image') {
+      steps{
+        sh "docker rmi $registry:$BUILD_NUMBER"
       }
     }
   }
-}
-
-  }
-
 }
