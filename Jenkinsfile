@@ -3,7 +3,7 @@ pipeline {
 
 
     environment {
-        DOCKER_REGISTRY = "https://registry-1.docker.io/v2"
+        DOCKER_REGISTRY = "https://hub.docker.com"
         APP_IMAGE_NAME = "${DOCKER_REGISTRY}/nimrodops/labci"
         APP_VERSION = "${BUILD_TAG}".toLowerCase()
     }
