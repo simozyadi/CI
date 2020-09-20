@@ -7,14 +7,14 @@ pipeline {
   agent { label 'cdnode' }
   stages {
    
-    stage('Building image') {
+    stage('Docker: Build Image') {
       steps{
         script {
           dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
       }
     }
-    stage('Deploy Image') {
+    stage('Docker: Push Image to Hub') {
       steps{
         script {
           docker.withRegistry( '', registryCredential ) {
@@ -23,7 +23,7 @@ pipeline {
         }
       }
     }
-    stage('Remove Unused docker image') {
+    stage('Docker: Remove Local Image') {
       steps{
         sh "docker rmi $registry:$BUILD_NUMBER"
       }
