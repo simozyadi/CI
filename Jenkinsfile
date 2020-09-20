@@ -3,7 +3,7 @@ pipeline {
 
 
     environment {
-        DOCKER_REGISTRY = "https://hub.docker.com"
+        DOCKER_REGISTRY = "hub.docker.com"
         APP_IMAGE_NAME = "${DOCKER_REGISTRY}/nimrodops/labci"
         APP_VERSION = "${BUILD_TAG}".toLowerCase()
     }
@@ -27,7 +27,7 @@ pipeline {
                         
                     ]) {
                         sh """
-                            docker login -u ${HUB_USERNAME} -p ${HUB_PASSWORD} ${DOCKER_REGISTRY}
+                            docker login -u ${HUB_USERNAME} --password-stdin ${HUB_PASSWORD} ${DOCKER_REGISTRY}
                             docker build -t ${APP_IMAGE_NAME}:${env.APP_VERSION} .
                             docker push ${APP_IMAGE_NAME}:${env.APP_VERSION}
                           
