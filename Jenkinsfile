@@ -27,7 +27,7 @@ pipeline {
                         
                     ]) {
                         sh """
-                            docker login -u ${HUB_USERNAME} --password-stdin ${HUB_PASSWORD} ${DOCKER_REGISTRY}
+                            docker login -u ${HUB_USERNAME} --password-stdin ${DOCKER_REGISTRY}
                             docker build -t ${APP_IMAGE_NAME}:${env.APP_VERSION} .
                             docker push ${APP_IMAGE_NAME}:${env.APP_VERSION}
                           
