@@ -1,7 +1,7 @@
 pipeline{
 
   environment{
-         image_name = 'nimrodops/python_img'
+         image_name = 'nimrodops/python_app'
          app=''
          }
 
