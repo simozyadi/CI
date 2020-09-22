@@ -1,6 +1,8 @@
+ def app
+ 
 pipeline{
 
-  def app
+ 
 
   environment{
          image_name = 'nimrodops/python-app'
