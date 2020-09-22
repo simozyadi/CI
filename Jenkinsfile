@@ -3,7 +3,7 @@ pipeline{
   def app
 
   environment{
-         image_name = 'nimrodops/python_app'
+         image_name = 'nimrodops/python-app'
          }
 
     agent{
