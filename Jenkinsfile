@@ -17,8 +17,9 @@ pipeline{
     stages{
         stage('Build python image'){
             steps{
-
+              script{
                 app = docker.build image_name + ":$BUILD_NUMBER"
+              }
             }
 
 
@@ -28,7 +29,9 @@ pipeline{
 
             steps{
 
+              script{
               docker.withRegistry('https://registry.hub.docker.com', 'hub-credentials')
+              }
                 app.push()
             }
           
