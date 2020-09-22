@@ -2,6 +2,7 @@ pipeline{
 
   environment{
          image_name = 'python_img/png'
+         app=''
          }
 
     agent{
@@ -13,7 +14,7 @@ pipeline{
         stage('Build python image'){
             steps{
 
-                app = docker.build image_name+ ":$BUILD_NUMBER"
+                app = docker.build image_name + ":$BUILD_NUMBER"
             }
 
 
@@ -33,7 +34,7 @@ pipeline{
 
           steps{
 
-            sh "docker rmi image_name + ":$BUILD_NUMBER"
+            sh "docker rmi image_name":$BUILD_NUMBER"
           }
 
 
