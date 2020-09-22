@@ -1,11 +1,12 @@
- def app
- 
+
+
 pipeline{
 
  
 
   environment{
          image_name = 'nimrodops/python-app'
+          app=''
          }
 
     agent{
