@@ -34,7 +34,7 @@ pipeline{
 
           steps{
 
-            sh "docker rmi image_name":$BUILD_NUMBER"
+            sh "docker rmi $image_name:$BUILD_NUMBER"
           }
 
 
