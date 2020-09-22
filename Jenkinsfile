@@ -31,8 +31,9 @@ pipeline{
 
               script{
               docker.withRegistry('https://registry.hub.docker.com', 'hub-credentials')
+               app.push()
               }
-                app.push()
+
             }
           
         }
