@@ -1,32 +1,58 @@
-pipeline {
-  environment {
-    registry = "nimrodops/nginx-app"
-    registryCredential = 'hub-credentials'
-    dockerImage = ''
-  }
-  agent { label 'cdnode' }
-  stages {
-   
-    stage('Docker: Build Image') {
-      steps{
-        script {
-          dockerImage = docker.build registry + ":$BUILD_NUMBER"
-        }
-      }
+pipeline{
+
+  environment{
+         image_name = 'python_img/png'
+         }
+
+    agent{
+
+       label 'cdnode' 
+        
     }
-    stage('Docker: Push Image to Hub') {
-      steps{
-        script {
-          docker.withRegistry( '', registryCredential ) {
-            dockerImage.push()
+    stages{
+        stage('Build python image'){
+            steps{
+
+                app = docker.build image_name+ ":$BUILD_NUMBER"
+            }
+
+
+        }
+
+        stage('push python image'){
+
+            steps{
+
+              docker.withRegistry('https://registry.hub.docker.com', 'hub-credentials')
+                app.push()
+            }
+          
+        }
+
+                stage('delete local image'){
+
+          steps{
+
+            sh "docker rmi image_name + ":$BUILD_NUMBER"
           }
+
+
         }
-      }
+
+
     }
-    stage('Docker: Remove Local Image') {
-      steps{
-        sh "docker rmi $registry:$BUILD_NUMBER"
-      }
+         
+    post{
+        always{
+            echo "========always========"
+        }
+        success{
+            echo "========pipeline executed successfully ========"
+        }
+        failure{
+            echo "========pipeline execution failed========"
+        }
     }
-  }
+
+
 }
