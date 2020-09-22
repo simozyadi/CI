@@ -30,8 +30,9 @@ pipeline{
             steps{
 
               script{
-              docker.withRegistry('https://registry.hub.docker.com', 'hub-credentials')
+              docker.withRegistry('https://registry.hub.docker.com', 'hub-credentials'){
                app.push()
+              }
               }
 
             }
