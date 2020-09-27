@@ -11,7 +11,7 @@ pipeline {
                 sh 'mvn -B -DskipTests clean package'
             }
         }
-        stage('Scan') {
+       /* stage('Scan') {
             steps {
 		script {
 			withSonarQubeEnv('sqserv') {
@@ -23,7 +23,7 @@ pipeline {
 			}
 		}
             }
-        }
+        } */
         stage('Test') {
             steps {
                 sh 'mvn test'
