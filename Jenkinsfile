@@ -16,9 +16,9 @@ pipeline {
 		script {
 			withSonarQubeEnv('sqserv') {
 				sh """mvn sonar:sonar \
-  -Dsonar.projectKey=mvnone \
-  -Dsonar.host.url=http://sonar-rueil.northeurope.cloudapp.azure.com \
-  -Dsonar.login=50c4c7679593974ffe59a1c9265292d7974c694e
+  					-Dsonar.projectKey=mvnone \
+  					-Dsonar.host.url=http://sonar-rueil.northeurope.cloudapp.azure.com \
+  					-Dsonar.login=50c4c7679593974ffe59a1c9265292d7974c694e
 				"""
 			}
 		}
@@ -34,10 +34,43 @@ pipeline {
                 }
             }
         }
-        stage('Deliver') {
-            steps {
-               echo "Deploy OK" 
-            }
-        }
+      	
+	stage('JFrog: Deploy Artifact') {
+      		steps {
+          		script {
+
+                	echo "Sending Artifact to JFROG"
+
+                        def SERVER_ID = "artserv"
+
+                        def server = Artifactory.server SERVER_ID
+
+                        def uploadSpec =
+
+                  """
+                        {
+                                "files": [
+                                                        {
+                                                                "pattern": "*.jar",
+                                                                "target": "path/to/jfrog/repo"
+                                                        }
+                                                ]
+                        }
+                  """
+
+                        def buildInfo = Artifactory.newBuildInfo()
+
+                        buildInfo.env.capture = true
+
+                        buildInfo=server.upload(uploadSpec)
+
+                        server.publishBuildInfo(buildInfo)
+
+                echo "Deployment succeeded. Have a nice day !"
+
+          }
+      }
+    }
+
     }
 }
