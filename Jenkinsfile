@@ -43,7 +43,8 @@ pipeline {
 
                         def SERVER_ID = "artserv"
 
-                        def server = Artifactory.server SERVER_ID
+				def PACKAGE_NAME = ${JOB_NAME}
+				def server = Artifactory.server SERVER_ID
 
                         def uploadSpec =
 
@@ -52,7 +53,7 @@ pipeline {
                                 "files": [
                                                         {
                                                                 "pattern": "*.jar",
-                                                                "target": "path/to/jfrog/repo"
+                                                                "target": "libs-snapshot/${PACKAGE_NAME}/${BUILD_NUMBER}"
                                                         }
                                                 ]
                         }
