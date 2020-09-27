@@ -52,7 +52,7 @@ pipeline {
                                 "files": [
                                                         {
                                                                 "pattern": "*.jar",
-                                                                "target": "libs-snapshot/${PACKAGE_NAME}/${BUILD_NUMBER}"
+                                                                "target": "libs-snapshot/${BRANCH_NAME}/${BUILD_NUMBER}"
                                                         }
                                                 ]
                         }
