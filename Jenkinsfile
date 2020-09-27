@@ -13,7 +13,11 @@ pipeline {
         }
         stage('Scan') {
             steps {
-                sh 'mvn sonar:sonar'
+		script {
+			withSonarQubeEnv('sqserv') {
+				sh 'mvn sonar:sonar'
+			}
+		}
             }
         }
         stage('Test') {
@@ -28,7 +32,7 @@ pipeline {
         }
         stage('Deliver') {
             steps {
-                sh './scripts/deliver.sh'
+               echo "Deploy OK" 
             }
         }
     }
