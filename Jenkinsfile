@@ -51,7 +51,7 @@ pipeline {
                         {
                                 "files": [
                                                         {
-                                                                "pattern": "lib/*.jar",
+                                                                "pattern": "target/*.jar",
                                                                 "target": "libs-snapshot/${BRANCH_NAME}/${BUILD_NUMBER}/"
                                                         }
                                                 ]
