@@ -38,7 +38,7 @@ pipeline {
 	stage('JFrog: Deploy Artifact') {
       		steps {
           		script {
-			sh 'ls && pwd && cd target && ls'
+			
                 	echo "Sending Artifact to JFROG"
 
                         def SERVER_ID = "artserv"
@@ -52,7 +52,7 @@ pipeline {
                                 "files": [
                                                         {
                                                                 "pattern": "target/*.jar",
-                                                                "target": "jcenter/${BRANCH_NAME}/${BUILD_NUMBER}/"
+                                                                "target": "libs-snapshot/${BRANCH_NAME}/${BUILD_NUMBER}/"
                                                         }
                                                 ]
                         }
