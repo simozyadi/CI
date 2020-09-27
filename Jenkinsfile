@@ -38,7 +38,7 @@ pipeline {
 	stage('JFrog: Deploy Artifact') {
       		steps {
           		script {
-
+			sh 'ls && pwd'
                 	echo "Sending Artifact to JFROG"
 
                         def SERVER_ID = "artserv"
