@@ -42,9 +42,8 @@ pipeline {
                 	echo "Sending Artifact to JFROG"
 
                         def SERVER_ID = "artserv"
-
-				def PACKAGE_NAME = ${JOB_NAME}
-				def server = Artifactory.server SERVER_ID
+				
+			def server = Artifactory.server SERVER_ID
 
                         def uploadSpec =
 
